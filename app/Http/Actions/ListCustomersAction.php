@@ -4,12 +4,21 @@
 namespace App\Http\Actions;
 
 
-use Illuminate\Http\Request;
+use App\Customer;
+use App\Traits\HasApiResponse;
+use Illuminate\Http\JsonResponse;
 
 class ListCustomersAction
 {
-    public function execute(Request $request)
+    use HasApiResponse;
+
+    /**
+     * @return JsonResponse
+     */
+    public function execute(): JsonResponse
     {
-        return $request->except(['_token']);
+        $customers = Customer::all();
+
+        return $this->successResponse('Customers fetched successfully.', $customers);
     }
 }

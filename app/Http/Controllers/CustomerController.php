@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function fetchCustomers(Request $request)
+    public function fetchCustomers()
     {
-        return (new ListCustomersAction())->execute($request);
+        return (new ListCustomersAction())->execute();
     }
 }

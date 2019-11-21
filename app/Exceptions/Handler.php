@@ -5,8 +5,10 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +52,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if (! $exception instanceof ValidationException) {
+            Log::error($exception->getMessage());
+        }
+
+        if ($exception instanceof NotFoundHttpException) {
+            return Response::json([
+                'status' => 'error',
+                'message' => 'Unable to locate resource',
+            ]);
+        }
+
         if ($exception instanceof ValidationException) {
             return Response::json([
                 'status' => 'error',
