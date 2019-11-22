@@ -15,6 +15,8 @@ trait HasApiResponse
     protected $response = [];
 
     /**
+     * Return a success response
+     *
      * @param $message
      * @param array $data
      * @return JsonResponse
@@ -34,6 +36,8 @@ trait HasApiResponse
     }
 
     /**
+     * Return a form validation error response
+     *
      * @param $errors
      * @return JsonResponse
      */
