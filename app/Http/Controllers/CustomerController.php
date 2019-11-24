@@ -48,6 +48,8 @@ class CustomerController extends Controller
     }
 
     /**
+     * Update a customer
+     *
      * @param UpdateCustomerRequest $request
      * @return JsonResponse
      */
@@ -57,6 +59,8 @@ class CustomerController extends Controller
     }
 
     /**
+     * Delete a customer
+     *
      * @param Request $request
      * @return JsonResponse|null
      */
