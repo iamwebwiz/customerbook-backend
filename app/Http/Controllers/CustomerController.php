@@ -2,13 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Actions\FetchSingleCustomerAction;
 use App\Http\Actions\ListCustomersAction;
+use App\Http\Actions\StoreCustomerAction;
+use App\Http\Requests\FetchSingleCustomerRequest;
+use App\Http\Requests\StoreCustomerRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function fetchCustomers()
+    /**
+     * Fetch all customers
+     *
+     * @return JsonResponse
+     */
+    public function fetchCustomers(): JsonResponse
     {
         return (new ListCustomersAction())->execute();
+    }
+
+    /**
+     * Store a new customer to the database
+     *
+     * @param StoreCustomerRequest $request
+     * @return JsonResponse
+     */
+    public function storeCustomer(StoreCustomerRequest $request): JsonResponse
+    {
+        return (new StoreCustomerAction())->execute($request);
+    }
+
+    /**
+     * Get the data of a single customer
+     *
+     * @param FetchSingleCustomerRequest $request
+     * @return JsonResponse|null
+     */
+    public function fetchSingleCustomer(FetchSingleCustomerRequest $request): ?JsonResponse
+    {
+        return (new FetchSingleCustomerAction())->execute($request);
     }
 }
