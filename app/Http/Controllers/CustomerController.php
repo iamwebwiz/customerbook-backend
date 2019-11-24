@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Actions\DeleteCustomerAction;
 use App\Http\Actions\FetchSingleCustomerAction;
 use App\Http\Actions\ListCustomersAction;
 use App\Http\Actions\StoreCustomerAction;
@@ -53,5 +54,14 @@ class CustomerController extends Controller
     public function updateCustomer(UpdateCustomerRequest $request): JsonResponse
     {
         return (new UpdateCustomerAction())->execute($request);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse|null
+     */
+    public function deleteCustomer(Request $request): ?JsonResponse
+    {
+        return (new DeleteCustomerAction())->execute($request);
     }
 }

@@ -23,8 +23,6 @@ class StoreCustomerAction
     {
         $customer = Customer::create($request->except('_token'));
 
-        return $this->successResponse('Customer created successfully', [
-            'customer' => $customer
-        ]);
+        return $this->successResponse('Customer created successfully', $customer);
     }
 }

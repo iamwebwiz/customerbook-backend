@@ -18,3 +18,4 @@ Route::get('/', [CustomerController::class, 'fetchCustomers'])->name('customers'
 Route::post('store', [CustomerController::class, 'storeCustomer'])->name('customers.store');
 Route::get('customer', [CustomerController::class, 'fetchSingleCustomer'])->name('customers.customer');
 Route::put('update', [CustomerController::class, 'updateCustomer'])->name('customers.update');
+Route::delete('delete', [CustomerController::class, 'deleteCustomer'])->name('customers.delete');

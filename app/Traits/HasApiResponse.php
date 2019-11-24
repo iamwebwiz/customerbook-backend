@@ -22,7 +22,7 @@ trait HasApiResponse
      * @param array $data
      * @return JsonResponse
      */
-    public function successResponse($message, $data = []): JsonResponse
+    public function successResponse(string $message, array $data = []): JsonResponse
     {
         $this->response = [
             'status' => 'success',
@@ -39,11 +39,11 @@ trait HasApiResponse
     /**
      * Return a failed response
      *
-     * @param $message
+     * @param string $message
      * @param array $data
      * @return JsonResponse
      */
-    public function failedResponse($message, $data = []): JsonResponse
+    public function failedResponse(string $message, array $data = []): JsonResponse
     {
         $this->response = [
             'status' => 'failed',
@@ -58,6 +58,27 @@ trait HasApiResponse
     }
 
     /**
+     * Return a resource not found response
+     *
+     * @param string $message
+     * @param array $data
+     * @return JsonResponse
+     */
+    public function notFoundResponse(string $message, array $data = []): JsonResponse
+    {
+        $this->response = [
+            'status' => 'not_found',
+            'message' => $message,
+        ];
+
+        if (! empty($data)) {
+            $this->response['data'] = $data;
+        }
+
+        return Response::json($this->response, 404);
+    }
+
+    /**
      * Return a form validation error response
      *
      * @param $errors
@@ -66,7 +87,7 @@ trait HasApiResponse
     public function formValidationErrorResponse($errors): JsonResponse
     {
         $this->response = [
-            'status' => 'failed',
+            'status' => 'error',
             'message' => 'Whoops! Validation failed!',
             'validationErrors' => $errors,
         ];
