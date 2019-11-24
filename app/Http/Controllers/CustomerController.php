@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Actions\FetchSingleCustomerAction;
 use App\Http\Actions\ListCustomersAction;
 use App\Http\Actions\StoreCustomerAction;
+use App\Http\Actions\UpdateCustomerAction;
 use App\Http\Requests\FetchSingleCustomerRequest;
 use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -42,5 +44,14 @@ class CustomerController extends Controller
     public function fetchSingleCustomer(FetchSingleCustomerRequest $request): ?JsonResponse
     {
         return (new FetchSingleCustomerAction())->execute($request);
+    }
+
+    /**
+     * @param UpdateCustomerRequest $request
+     * @return JsonResponse
+     */
+    public function updateCustomer(UpdateCustomerRequest $request): JsonResponse
+    {
+        return (new UpdateCustomerAction())->execute($request);
     }
 }
