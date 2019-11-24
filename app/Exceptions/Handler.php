@@ -66,13 +66,6 @@ class Handler extends ExceptionHandler
             ]);
         }
 
-        if ($exception instanceof MethodNotAllowedException) {
-            return Response::json([
-                'status' => 'error',
-                'message' => "You cannot access this resource with method. {$exception->getAllowedMethods()} are allowed",
-            ]);
-        }
-
         if ($exception instanceof  MethodNotAllowedHttpException) {
             return Response::json([
                 'status' => 'error',
