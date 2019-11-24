@@ -8,7 +8,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
+use Prophecy\Exception\Doubler\MethodNotFoundException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 
 class Handler extends ExceptionHandler
 {
@@ -60,6 +63,27 @@ class Handler extends ExceptionHandler
             return Response::json([
                 'status' => 'error',
                 'message' => 'Unable to locate resource',
+            ]);
+        }
+
+        if ($exception instanceof MethodNotAllowedException) {
+            return Response::json([
+                'status' => 'error',
+                'message' => "You cannot access this resource with method. {$exception->getAllowedMethods()} are allowed",
+            ]);
+        }
+
+        if ($exception instanceof  MethodNotAllowedHttpException) {
+            return Response::json([
+                'status' => 'error',
+                'message' => 'You cannot access this resource with method.',
+            ]);
+        }
+
+        if ($exception instanceof MethodNotFoundException) {
+            return Response::json([
+                'status' => 'error',
+                'message' => 'The method you are trying to access does not exist',
             ]);
         }
 
