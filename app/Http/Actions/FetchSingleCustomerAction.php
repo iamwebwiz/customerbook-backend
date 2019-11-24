@@ -30,7 +30,7 @@ class FetchSingleCustomerAction
                 'customer' => $customer
             ]);
         } catch (Exception $exception) {
-            Log::error($exception->getMessage());
+            Log::error($exception->getTraceAsString());
 
             return $this->failedResponse("Unable to retrieve customer data: {$exception->getMessage()}");
         }
