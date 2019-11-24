@@ -22,7 +22,7 @@ trait HasApiResponse
      * @param array $data
      * @return JsonResponse
      */
-    public function successResponse(string $message, array $data = []): JsonResponse
+    public function successResponse(string $message, $data = []): JsonResponse
     {
         $this->response = [
             'status' => 'success',
@@ -43,7 +43,7 @@ trait HasApiResponse
      * @param array $data
      * @return JsonResponse
      */
-    public function failedResponse(string $message, array $data = []): JsonResponse
+    public function failedResponse(string $message, $data = []): JsonResponse
     {
         $this->response = [
             'status' => 'failed',
@@ -64,7 +64,7 @@ trait HasApiResponse
      * @param array $data
      * @return JsonResponse
      */
-    public function notFoundResponse(string $message, array $data = []): JsonResponse
+    public function notFoundResponse(string $message, $data = []): JsonResponse
     {
         $this->response = [
             'status' => 'not_found',
