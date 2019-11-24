@@ -14,4 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [CustomerController::class, 'fetchCustomers']);
+Route::get('/', [CustomerController::class, 'fetchCustomers'])->name('customers');
+Route::post('store', [CustomerController::class, 'storeCustomer'])->name('customers.store');
+Route::get('customer', [CustomerController::class, 'fetchSingleCustomer'])->name('customers.customer');
