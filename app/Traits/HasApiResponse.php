@@ -6,6 +6,7 @@ namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 trait HasApiResponse
 {
@@ -71,5 +72,22 @@ trait HasApiResponse
         ];
 
         return Response::json($this->response);
+    }
+
+    /**
+     * Carry out the validation
+     *
+     * @param $request
+     * @return \Illuminate\Contracts\Validation\Validator|JsonResponse
+     */
+    public function performValidation($request)
+    {
+        $validation = Validator::make($request->all(), $request->rules(), $request->messages());
+
+        if ($validation->fails()) {
+            return $this->formValidationErrorResponse($validation->errors());
+        }
+
+        return $validation;
     }
 }
