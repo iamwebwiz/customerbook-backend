@@ -36,6 +36,27 @@ trait HasApiResponse
     }
 
     /**
+     * Return a failed response
+     *
+     * @param $message
+     * @param array $data
+     * @return JsonResponse
+     */
+    public function failedResponse($message, $data = []): JsonResponse
+    {
+        $this->response = [
+            'status' => 'failed',
+            'message' => $message,
+        ];
+
+        if (! empty($data)) {
+            $this->response['data'] = $data;
+        }
+
+        return Response::json($this->response);
+    }
+
+    /**
      * Return a form validation error response
      *
      * @param $errors
